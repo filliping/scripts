@@ -15,9 +15,6 @@ config=/etc/shadowsocks/ss-server.json
 # more : https://shadowsocks.org/en/spec/Stream-Ciphers.html
 method="aes-256-cfb"
 
-# get public ip address
-server=$(curl -s "https://api.ipify.org")
-
 # check user root
 if [ "$(id -u)" != "0" ]; then
    echo "this script must be run as root" 1>&2
@@ -81,6 +78,9 @@ systemctl daemon-reload
 systemctl enable ssserver
 systemctl restart ssserver
 systemctl status ssserver
+
+# get public ip address
+server=$(curl -s "https://api.ipify.org")
 
 echo "========================================"
 echo " Address    : $server:$port"
